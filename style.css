@@ -1,0 +1,124 @@
+/* Base styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #000;
+    color: #00ff00;
+    overflow-x: hidden;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #00ff00;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+/* Game list grid */
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* overlay above background canvas */
+}
+
+/* Individual game cards */
+.game {
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 1px solid #00ff00;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.game:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00 inset;
+}
+
+.game h2 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.game-thumbnail {
+    width: 100%;
+    height: 120px;
+    background-color: #001100;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff00;
+    font-size: 0.9rem;
+    border: 1px solid #00ff00;
+}
+
+/* Fullscreen overlay */
+#fullscreen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+#fullscreen-container.hidden {
+    display: none;
+}
+
+#fullscreen-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Exit button */
+#exit-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: #00ff00;
+    border: none;
+    color: #000;
+    font-size: 1.5rem;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+/* Matrix background canvas */
+#matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
