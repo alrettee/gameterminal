@@ -2,6 +2,6 @@ gameterminal
 
 developed by me (alrettee)
 
-youtube.com/gravycracker
+https://www.youtube.com/@gravycracker
 
 :)
