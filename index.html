@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>terminal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: black;
+            color: lime;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 0 5px lime;
+        }
+        .game-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .game {
+            width: 180px;
+            background: rgba(0,0,0,0.8);
+            color: lime;
+            border: 1px solid lime;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            padding: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px lime;
+        }
+        .game-thumbnail {
+            margin-top: 5px;
+            font-size: 14px;
+            border: 1px dashed lime;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        /* Fullscreen container */
+        #fullscreen-container {
+            position: fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:black;
+            display: none;
+            z-index:1000;
+        }
+        #fullscreen-iframe {
+            width:100%;
+            height:100%;
+            border:none;
+        }
+        #exit-fullscreen {
+            position:absolute;
+            top:10px; right:10px;
+            z-index:1001;
+            padding:10px 20px;
+            font-family: monospace;
+            font-size:16px;
+            background: rgba(0,255,0,0.2);
+            color: lime;
+            border:1px solid lime;
+            border-radius:5px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>terminal</h1>
+    <div class="game-list"></div>
+
+    <!-- Fullscreen iframe -->
+    <div id="fullscreen-container">
+        <iframe id="fullscreen-iframe"></iframe>
+        <button id="exit-fullscreen">Exit</button>
+    </div>
+
+    <script>
+        const games = [
+            { name: "Granny", src: "games/Granny(JavaScript)/index.html" },
+            { name: "Basket Random", src: "games/basketrandom/index.html" },
+            { name: "Bit-Life", src: "games/bitlife/index.html" },
+            { name: "Crazy Cattle 3D", src: "games/crazycattle3d/index.html" },
+            { name: "Flappy Bird", src: "games/flappybird/index.html" },
+            { name: "Minecraft 1.5.2", src: "games/minecraft1.5.2/index.html" },
+            { name: "Moto X3M 2", src: "games/motox3m2/index.html" },
+            { name: "OvO", src: "games/ovo/index.html" },
+            { name: "Slope", src: "games/slope/index.html" },
+            { name: "Soccer Random", src: "games/soccerrandom/index.html" },
+            { name: "Space Invaders", src: "games/spaceinvaders/index.html" },
+            { name: "Tetris", src: "games/tetris/index.html" },
+            { name: "Volley Random", src: "games/volleyrandom/index.html" },
+            { name: "Web-Retro Emulator", src: "games/webretro/index.html" },
+            { name: "Worlds Hardest Game", src: "games/worldshardestgame/index.html" },
+            { name: "Worlds Hardest Game 2", src: "games/worldshardestgame2/index.html" }
+        ];
+
+        const container = document.querySelector(".game-list");
+        const fullscreenContainer = document.getElementById("fullscreen-container");
+        const fullscreenIframe = document.getElementById("fullscreen-iframe");
+        const exitBtn = document.getElementById("exit-fullscreen");
+
+        games.forEach(game => {
+            const card = document.createElement("div");
+            card.classList.add("game");
+
+            const title = document.createElement("h2");
+            title.textContent = game.name;
+
+            const thumb = document.createElement("div");
+            thumb.classList.add("game-thumbnail");
+            thumb.textContent = ">>> CLICK TO PLAY <<<";
+
+            card.appendChild(title);
+            card.appendChild(thumb);
+            container.appendChild(card);
+
+            card.addEventListener("click", () => {
+                fullscreenIframe.src = game.src;
+                fullscreenContainer.style.display = "block";
+
+                if (fullscreenContainer.requestFullscreen) fullscreenContainer.requestFullscreen();
+                else if (fullscreenContainer.webkitRequestFullscreen) fullscreenContainer.webkitRequestFullscreen();
+                else if (fullscreenContainer.msRequestFullscreen) fullscreenContainer.msRequestFullscreen();
+            });
+        });
+
+        exitBtn.addEventListener("click", () => {
+            if (document.fullscreenElement) document.exitFullscreen();
+            fullscreenContainer.style.display = "none";
+            fullscreenIframe.src = "";
+        });
+
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+                fullscreenContainer.style.display = "none";
+                fullscreenIframe.src = "";
+            }
+        });
+    </script>
+</body>
+</html>
